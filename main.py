@@ -2,6 +2,8 @@ from collections import deque
 
 def main():
     n = int(input())
+
+    # -1 to convert from 1-indexed to 0-indexed
     shortcuts = [int(s) - 1 for s in input().split()]
 
     distances = [-1] * n
