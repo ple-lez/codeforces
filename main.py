@@ -6,30 +6,31 @@ def main():
 
     distances = [-1] * n
     to_visit = deque()
-    visited = set()
 
     # (intersection, distance)
     to_visit.append((0, 0))
+
     while len(to_visit) > 0:
         intersection, distance = to_visit.popleft()
 
-        if intersection in visited:
+        # node has already been visited
+        if distances[intersection] != -1:
             continue
-        
-        visited.add(intersection)
         distances[intersection] = distance
 
-        if shortcuts[intersection] not in visited:
+        shortcut = shortcuts[intersection]
+        if distances[shortcut] == -1:
             to_visit.append((shortcuts[intersection], distance + 1))
 
-        if intersection + 1 < n and intersection + 1 not in visited:
+        if intersection + 1 < n and distances[intersection + 1] == -1:
             to_visit.append((intersection + 1, distance + 1))
 
-        if intersection - 1 > 0 and intersection  - 1 not in visited:
+        if intersection - 1 > 0 and distances[intersection - 1] == -1:
             to_visit.append((intersection - 1, distance + 1))
 
-    print(' '.join([str(d) for d in distances]))
-
+    for d in distances:
+        print(d, end=' ')
+    print('')
 
 if __name__ == "__main__":
     main()
